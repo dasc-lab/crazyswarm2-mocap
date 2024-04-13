@@ -230,27 +230,27 @@ int main(int argc, char **argv)
       markers->push_back(pcl::PointXYZ(point(0), point(1), point(2)));
     }
     tracker.update(markers);
-
+    
     transforms.clear();
-    transforms.reserve(mocap->rigidBodies().size());
-    for (const auto &iter : mocap->rigidBodies())
-    {
-      const auto& rigidBody = iter.second;
+    // transforms.reserve(mocap->rigidBodies().size());
+    // for (const auto &iter : mocap->rigidBodies())
+    // {
+    //   const auto& rigidBody = iter.second;
 
-      // const auto& transform = rigidBody.transformation();
-      // transforms.emplace_back(eigenToTransform(transform));
-      transforms.resize(transforms.size() + 1);
-      transforms.back().header.stamp = time;
-      transforms.back().header.frame_id = "world";
-      transforms.back().child_frame_id = rigidBody.name();
-      transforms.back().transform.translation.x = rigidBody.position().x();
-      transforms.back().transform.translation.y = rigidBody.position().y();
-      transforms.back().transform.translation.z = rigidBody.position().z();
-      transforms.back().transform.rotation.x = rigidBody.rotation().x();
-      transforms.back().transform.rotation.y = rigidBody.rotation().y();
-      transforms.back().transform.rotation.z = rigidBody.rotation().z();
-      transforms.back().transform.rotation.w = rigidBody.rotation().w();
-    }
+    //   // const auto& transform = rigidBody.transformation();
+    //   // transforms.emplace_back(eigenToTransform(transform));
+    //   transforms.resize(transforms.size() + 1);
+    //   transforms.back().header.stamp = time;
+    //   transforms.back().header.frame_id = "world";
+    //   transforms.back().child_frame_id = rigidBody.name();
+    //   transforms.back().transform.translation.x = rigidBody.position().x();
+    //   transforms.back().transform.translation.y = rigidBody.position().y();
+    //   transforms.back().transform.translation.z = rigidBody.position().z();
+    //   transforms.back().transform.rotation.x = rigidBody.rotation().x();
+    //   transforms.back().transform.rotation.y = rigidBody.rotation().y();
+    //   transforms.back().transform.rotation.z = rigidBody.rotation().z();
+    //   transforms.back().transform.rotation.w = rigidBody.rotation().w();
+    // }
 
     for (const auto& rigidBody : tracker.rigidBodies())
     {
@@ -282,7 +282,7 @@ int main(int argc, char **argv)
       else
       {
         std::chrono::duration<double> elapsedSeconds = chrono_now - rigidBody.lastValidTime();
-        RCLCPP_WARN(node->get_logger(), "No updated pose for %s for %f s.", rigidBody.name().c_str(), elapsedSeconds.count());
+        // RCLCPP_WARN(node->get_logger(), "No updated pose for %s for %f s.", rigidBody.name().c_str(), elapsedSeconds.count());
       }
     }
 
